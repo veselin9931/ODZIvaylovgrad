@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using ODZ.Data;
+    using ODZ.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,7 +26,15 @@
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Article> Articles { get; set; }
+
+        public DbSet<Costumer> Costumers { get; set; }
+
+        public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
+
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 
