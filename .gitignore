@@ -308,3 +308,4 @@ __pycache__/
 !**/app/systemjs.config.js
 
 package-lock.json
+/Web/ODZ.Web/appsettings.json
