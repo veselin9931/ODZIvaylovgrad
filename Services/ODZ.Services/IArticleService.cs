@@ -4,7 +4,9 @@ using System.Text;
 
 namespace ODZ.Services
 {
-    class IArticleServices
+    public interface IArticleService
     {
+        public int CreateArticle(string name, string descripton, string imgUrl);
+
     }
 }
