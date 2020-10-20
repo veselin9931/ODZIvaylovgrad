@@ -40,7 +40,7 @@
               "node_modules/hammerjs/hammer.min.js"
             ]
           },
-          "configurations": {
+          "Configurations": {
             "production": {
               "fileReplacements": [
                 {
@@ -65,7 +65,7 @@
           "options": {
             "browserTarget": "ODZ.Web:build"
           },
-          "configurations": {
+          "Configurations": {
             "production": {
               "browserTarget": "ODZ.Web:build:production"
             }
@@ -113,7 +113,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.server.json"
           },
-          "configurations": {
+          "Configurations": {
             "dev": {
               "optimization": true,
               "outputHashing": "all",

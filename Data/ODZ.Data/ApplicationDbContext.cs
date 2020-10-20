@@ -57,7 +57,7 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for Identity models configuration
+            // Needed for Identity models Configuration
             base.OnModelCreating(builder);
 
             ConfigureUserIdentityRelations(builder);

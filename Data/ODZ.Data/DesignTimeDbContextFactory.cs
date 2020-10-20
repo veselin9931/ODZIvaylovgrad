@@ -11,14 +11,14 @@
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
+            var Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             builder.UseSqlServer(connectionString);
 
