@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MDBBootstrapModule  } from 'angular-bootstrap-md';
+import { DataService } from './shared/data.service';
 
 
 import { AppComponent } from './app.component';
@@ -53,7 +54,7 @@ import { LoginComponent } from './login/login.component';
     ]),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

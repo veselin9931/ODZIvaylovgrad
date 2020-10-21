@@ -16,6 +16,7 @@ namespace ODZ.Web
     using ODZ.Data.Common.Repositories;
     using ODZ.Data.Models;
     using ODZ.Data.Repositories;
+    using ODZ.Data.Seeding;
     using ODZ.Web.Infrastructure.Middlewares.Auth;
 
     public class Startup
@@ -51,6 +52,8 @@ namespace ODZ.Web
                 opts.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             });
 
+            services.AddTransient<UserSeeder>();
+
             services
                 .AddAuthentication()
                 .AddJwtBearer(opts =>
@@ -70,7 +73,7 @@ namespace ODZ.Web
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
-                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredLength = 3;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
@@ -97,8 +100,11 @@ namespace ODZ.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+                            IApplicationBuilder app,
+                            IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -109,6 +115,8 @@ namespace ODZ.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //userSeeder.SeedAsync();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

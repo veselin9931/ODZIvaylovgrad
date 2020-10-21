@@ -13,6 +13,7 @@
     using Microsoft.EntityFrameworkCore;
     using ODZ.Data;
     using ODZ.Models;
+    using Microsoft.AspNetCore.Identity;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -106,6 +107,19 @@
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            var hasher = new PasswordHasher<ApplicationUser>();
+
+            builder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                UserName = "admin@admin.com",
+                NormalizedUserName = "admin@admin.com",
+                Email = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "admin"),
+                SecurityStamp = Guid.NewGuid().ToString()
+            });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

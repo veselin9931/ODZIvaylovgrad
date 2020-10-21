@@ -9,7 +9,17 @@ export class LoginComponent implements OnInit {
 
   constructor() { }
 
+  errorMessage: string = "";
+
+    public creds = {
+        username: "",
+        password: ""
+    };
+
   ngOnInit(): void {
   }
 
+  onLogin(){
+
+  }
 }

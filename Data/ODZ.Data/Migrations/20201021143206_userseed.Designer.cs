@@ -10,8 +10,8 @@ using ODZ.Data;
 namespace ODZ.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201018123744_initial")]
-    partial class initial
+    [Migration("20201021143206_userseed")]
+    partial class userseed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -243,6 +243,26 @@ namespace ODZ.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "375f748e-66c2-4e80-a775-7b70efc43a6e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e04e2a9e-1847-48dc-82d7-70484cade851",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@admin.com",
+                            NormalizedUserName = "admin@admin.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP+8btibhocatyf0IDezWfc5ARGGbUmPyTWL8mTkmuiEHMHu/ZGdPths4D3xtSLMiw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "836415c4-6123-483f-9199-c10e6e475432",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com"
+                        });
                 });
 
             modelBuilder.Entity("ODZ.Models.Article", b =>

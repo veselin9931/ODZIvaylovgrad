@@ -8,8 +8,12 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Logging;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    public static class ApplicationDbContextSeeder
+    public class ApplicationDbContextSeeder
     {
         public static void Seed(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
@@ -23,9 +27,11 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
+
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             Seed(dbContext, roleManager);
         }
+
 
         public static void Seed(ApplicationDbContext dbContext, RoleManager<ApplicationRole> roleManager)
         {
@@ -60,5 +66,6 @@
                 }
             }
         }
+
     }
 }
