@@ -16,11 +16,10 @@ namespace ODZ.Web
     using ODZ.Data.Common.Repositories;
     using ODZ.Data.Models;
     using ODZ.Data.Repositories;
-    using ODZ.Data.Seeding;
     using ODZ.Web.Infrastructure.Middlewares.Auth;
 
     public class Startup
-    {
+    {   
         public Startup(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
@@ -51,8 +50,6 @@ namespace ODZ.Web
                 opts.Expiration = TimeSpan.FromDays(15);
                 opts.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             });
-
-            services.AddTransient<UserSeeder>();
 
             services
                 .AddAuthentication()
@@ -115,8 +112,6 @@ namespace ODZ.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            //userSeeder.SeedAsync();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

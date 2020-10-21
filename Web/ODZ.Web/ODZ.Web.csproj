@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\" />
+	  <Folder Include="ClientApp\src\app\shared\authentication\" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(ConfigurationConfiguration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
