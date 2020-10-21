@@ -38,6 +38,10 @@ body{
   padding: 50px;
 }
 
+ul {
+  list-style-type: none;
+}
+
 #newone{
   padding-top: 70px;
 }
