@@ -245,9 +245,9 @@ namespace ODZ.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "375f748e-66c2-4e80-a775-7b70efc43a6e",
+                            Id = "6f9c27c0-b010-4d5c-8b81-c6a7cb73b3f2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e04e2a9e-1847-48dc-82d7-70484cade851",
+                            ConcurrencyStamp = "80365008-bac4-4ca3-a392-f38377968cb1",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
@@ -255,9 +255,9 @@ namespace ODZ.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
                             NormalizedUserName = "admin@admin.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP+8btibhocatyf0IDezWfc5ARGGbUmPyTWL8mTkmuiEHMHu/ZGdPths4D3xtSLMiw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPz7LDo44DilLTSjojsrJ9sh/If+AKb3hkE9/PIoaUcicIlxcVYzVmGFTSxRkReySA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "836415c4-6123-483f-9199-c10e6e475432",
+                            SecurityStamp = "f1d48cb8-1d78-450d-89ba-90f6963f21f7",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });

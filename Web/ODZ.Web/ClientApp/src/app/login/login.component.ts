@@ -1,23 +1,25 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../shared/data.service';
+import { UserLogin } from '../shared/user-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
-  errorMessage: string = "";
+  public userLogin: UserLogin = new UserLogin();
+    public errorMessage: string = null;
 
-    public creds = {
-        username: "",
-        password: ""
-    };
-
-  ngOnInit(): void {
-  }
+    public login(): void {
+        this.dataService.login(this.userLogin).subscribe(
+            () => { },
+            (error: HttpErrorResponse) => this.errorMessage = error.error || 'Invalid login.');
+    }
 
   onLogin(){
 
