@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace ODZ.Web.Controllers
 {
+    [Route("[Controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

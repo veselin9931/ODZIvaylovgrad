@@ -5,11 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MDBBootstrapModule  } from 'angular-bootstrap-md';
 import { DataService } from './shared/data.service';
-import { IdentityService } from './shared/identity.service';
-import { StorageService } from './shared/storage.service';
-import { LoggerService } from './shared/logger.service';
-import { RouterService } from './shared/router.service';
-import { WindowRefService } from './shared/window-ref.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,7 +19,6 @@ import { DocumentsComponent } from './documents/documents.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +33,7 @@ import { RegisterComponent } from './register/register.component';
     DocumentsComponent,
     ActivityComponent,
     AboutParentComponent,
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,16 +50,10 @@ import { RegisterComponent } from './register/register.component';
       { path: 'activity', component: ActivityComponent },
       { path: 'about-parent', component: AboutParentComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
     ]),
     BrowserAnimationsModule,
   ],
-  providers: [DataService, 
-    IdentityService, 
-    StorageService, 
-    LoggerService, 
-    RouterService,
-    WindowRefService],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

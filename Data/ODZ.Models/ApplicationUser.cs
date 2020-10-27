@@ -18,7 +18,8 @@ namespace ODZ.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
-
+         
+        public string FullName { get; set; }
         // Audit info
         public DateTime CreatedOn { get; set; }
 
