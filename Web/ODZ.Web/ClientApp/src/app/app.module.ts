@@ -19,6 +19,7 @@ import { DocumentsComponent } from './documents/documents.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoginComponent } from './login/login.component';
     DocumentsComponent,
     ActivityComponent,
     AboutParentComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,6 +52,7 @@ import { LoginComponent } from './login/login.component';
       { path: 'activity', component: ActivityComponent },
       { path: 'about-parent', component: AboutParentComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ]),
     BrowserAnimationsModule,
   ],
