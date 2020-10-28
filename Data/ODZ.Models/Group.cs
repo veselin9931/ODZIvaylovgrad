@@ -10,7 +10,7 @@ namespace ODZ.Models
     {
         public Group()
         {
-            this.Personal = new List<Costumer>();
+            this.Personal = new List<Customer>();
         }
 
         [Required]
@@ -23,6 +23,6 @@ namespace ODZ.Models
 
         public string ImageUrl { get; set; }
 
-        public IList<Costumer> Personal { get; set; }
+        public IList<Customer> Personal { get; set; }
     }
 }

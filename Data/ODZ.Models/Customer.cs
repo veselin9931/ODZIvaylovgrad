@@ -7,12 +7,12 @@ using System.Text;
 
 namespace ODZ.Models
 {
-    public class Costumer : BaseDeletableModel<int>
+    public class Customer : BaseDeletableModel<int>
     {
         [Required]
         [StringLength(GlobalConstants.MaxLenghtName, MinimumLength = GlobalConstants.MinLenghtName, ErrorMessage = GlobalConstants.NameErrorMsg)]
         public string FirstName { get; set; }
-        
+
         [Required]
         [StringLength(GlobalConstants.MaxLenghtName, MinimumLength = GlobalConstants.MinLenghtName, ErrorMessage = GlobalConstants.NameErrorMsg)]
         public string LastName { get; set; }
