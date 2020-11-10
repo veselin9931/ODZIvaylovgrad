@@ -15,6 +15,7 @@ namespace ODZ.Web
     using ODZ.Data.Common.Repositories;
     using ODZ.Data.Models;
     using ODZ.Data.Repositories;
+    using ODZ.Services;
 
     public class Startup
     {
@@ -28,7 +29,7 @@ namespace ODZ.Web
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddIdentity<StoreUser, IdentityRole>(cfg =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
             })
@@ -71,6 +72,8 @@ namespace ODZ.Web
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            services.AddTransient<IUserService, UserService>();
 
             services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();

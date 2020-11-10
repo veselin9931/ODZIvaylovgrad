@@ -20,6 +20,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from '../register/register.component';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { RegisterComponent } from '../register/register.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    AccountModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

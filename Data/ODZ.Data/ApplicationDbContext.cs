@@ -15,7 +15,7 @@
     using ODZ.Models;
     using Microsoft.AspNetCore.Identity;
 
-    public class ApplicationDbContext : IdentityDbContext<StoreUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Data\ODZ.Data\ODZ.Data.csproj" />
+		<ProjectReference Include="..\..\Services\ODZ.Services\ODZ.Services.csproj" />
 		<ProjectReference Include="ODZ.Web.Infrastructures\ODZ.Web.Infrastructures.csproj" />
 	</ItemGroup>
 

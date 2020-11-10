@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\ODZ.Data\ODZ.Data.csproj" />
+    <ProjectReference Include="..\..\Data\ODZ.Models\ODZ.Models.csproj" />
+  </ItemGroup>
+
 </Project>

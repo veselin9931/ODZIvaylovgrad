@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using ODZ.Data;
+using ODZ.Data.Common.Repositories;
+using ODZ.Data.Models;
+using ODZ.Services;
 using ODZ.Web.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,17 +23,18 @@ namespace ODZ.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<StoreUser> signInManager;
-        private readonly UserManager<StoreUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
+        private readonly IUserService userService;
 
-        public AccountController(SignInManager<StoreUser> signInManager,
-                                 UserManager<StoreUser> userManager,
-                                 IConfiguration configuration)
+        public AccountController(IDeletableEntityRepository<ApplicationUser> userRepo,
+                                 UserManager<ApplicationUser> userManager,
+                                 IConfiguration configuration,
+                                 IUserService userService)
         {
-            this.signInManager = signInManager;
             this.userManager = userManager;
             this.configuration = configuration;
+            this.userService = userService;
         }
         // GET: api/<AccountController>
         [HttpGet]
@@ -51,22 +59,54 @@ namespace ODZ.Web.Controllers
                 return this.BadRequest("Failed to register");
             }
 
-            var user = new StoreUser()
+            var user = new ApplicationUser()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
+                FullName = model.FirstName + " " + model.LastName,
+                Email = model.Username,
+                UserName = model.Username,
             };
 
-            var result = await this.userManager.CreateAsync(user, model.Password);
+            var result = await userService.Create(user, model.Password);
 
-            if (result.Succeeded)
+            if (result != null)
             {
                 return this.Ok();
             }
 
             return this.BadRequest("Failed to register");
+        }
+
+        // POST api/<AccountController>
+        [HttpPost("authenticate")]
+        [Route("/authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] LoginViewModel userDto)
+        {
+            var user = await userService.Authenticate(userDto.Username, userDto.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configuration["JwtTokenValidation:Secret"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            // return basic user info (without password) and token to store client side
+            return Ok(new
+            {
+                Id = user.Id,
+                Username = user.UserName,
+                Token = tokenString
+            });
         }
 
         // PUT api/<AccountController>/5
@@ -82,104 +122,3 @@ namespace ODZ.Web.Controllers
         }
     }
 }
-
-
-
-//public class AccountController : BaseController
-//{
-//    private readonly SignInManager<StoreUser> signInManager;
-//    private readonly UserManager<StoreUser> userManager;
-//    private readonly IConfiguration configuration;
-
-//    public AccountController(SignInManager<StoreUser> signInManager,
-//                            UserManager<StoreUser> userManager,
-//                            IConfiguration configuration)
-//    {
-//        this.signInManager = signInManager;
-//        this.userManager = userManager;
-//        this.configuration = configuration;
-//    }
-
-//    [HttpGet]
-//    public async Task<string> Values()
-//    {
-//        return "value1";
-//    }
-
-//    [HttpPost]
-//    [Route("Register")]
-//    // POST : /api/Account/Register
-//    public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-//    {
-//        if (model == null || !this.ModelState.IsValid)
-//        {
-//            return this.BadRequest("Failed to register");
-//        }
-
-//        var user = new StoreUser()
-//        {
-//            FirstName = model.FirstName,
-//            LastName = model.LastName,
-//            Email = model.Email,
-//            UserName = model.Email,
-//        };
-
-//        var result = await this.userManager.CreateAsync(user, model.Password);
-
-//        if (result.Succeeded)
-//        {
-//            return this.Ok();
-//        }
-
-//        return this.BadRequest("Failed to register");
-
-//    }
-
-//    [HttpPost]
-//    public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
-//    {
-//        if (this.ModelState.IsValid)
-//        {
-//            var user = await userManager.FindByNameAsync(model.Username);
-
-//            if (user != null)
-//            {
-//                var result = await this.signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-//                if (result.Succeeded)
-//                {
-//                    //Create token
-//                    var claims = new[]
-//                    {
-//                            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-//                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-//                            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-//                        };
-
-//                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Tokens:Key"]));
-//                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-//                    var token = new JwtSecurityToken(
-//                        this.configuration["Tokens:Issuer"],
-//                        this.configuration["Tokens:Audience"],
-//                        claims,
-//                        expires: DateTime.UtcNow.AddMinutes(30),
-//                        signingCredentials: creds
-//                        );
-
-//                    var results = new
-//                    {
-//                        token = new JwtSecurityTokenHandler().WriteToken(token),
-//                        expiration = token.ValidTo,
-//                    };
-
-//                    return this.Created(" ", results);
-//                }
-
-//            }
-
-//        }
-
-//        return this.BadRequest();
-//    }
-//}
