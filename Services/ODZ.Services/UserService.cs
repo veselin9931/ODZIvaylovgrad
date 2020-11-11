@@ -33,8 +33,8 @@ namespace ODZ.Services
                 return null;
 
             // check if password is correct
-            //if (!VerifyPasswordHash(password, Encoding.ASCII.GetBytes(user.PasswordHash), Encoding.ASCII.GetBytes(user.PasswordSalt)))
-            //return null;
+            if (!VerifyPasswordHash(password, Convert.FromBase64String(user.PasswordHash), Convert.FromBase64String(user.PasswordSalt)))
+            return null;
 
            
             // authentication successful
@@ -63,8 +63,8 @@ namespace ODZ.Services
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = Encoding.UTF8.GetString(passwordHash);
-            user.PasswordSalt = Encoding.UTF8.GetString(passwordSalt);
+            user.PasswordHash = Convert.ToBase64String(passwordHash);
+            user.PasswordSalt = Convert.ToBase64String(passwordSalt);
 
             user.EmailConfirmed = true;
 
@@ -99,8 +99,8 @@ namespace ODZ.Services
         {
             if (password == null) throw new ArgumentNullException("password");
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            //if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            //if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
+            if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
+            if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {
