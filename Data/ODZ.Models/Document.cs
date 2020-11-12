@@ -9,10 +9,13 @@ namespace ODZ.Models
     public class Document : BaseDeletableModel<int>
     {
         [Required]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string Url { get; set; }
+        public byte[] Bytes { get; set; }
+
+        [Required]
+        public int Size { get; set; }
 
     }
 }
