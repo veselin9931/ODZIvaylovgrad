@@ -15,7 +15,7 @@ namespace ODZ.Models
         public byte[] Bytes { get; set; }
 
         [Required]
-        public int Size { get; set; }
+        public long Size { get; set; }
 
     }
 }
