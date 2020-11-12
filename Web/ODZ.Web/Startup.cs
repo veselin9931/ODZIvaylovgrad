@@ -3,6 +3,7 @@ namespace ODZ.Web
     using System.Text;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http.Features;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -28,7 +29,12 @@ namespace ODZ.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
             services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
@@ -74,6 +80,7 @@ namespace ODZ.Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IDocumentService, DocumentService>();
 
             services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();

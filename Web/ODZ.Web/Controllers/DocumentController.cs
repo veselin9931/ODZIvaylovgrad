@@ -13,7 +13,7 @@ using ODZ.Services;
 
 namespace ODZ.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DocumentController : ControllerBase
     {
@@ -25,14 +25,14 @@ namespace ODZ.Web.Controllers
         }
 
         // POST api/<DocumentController>
-        [HttpPost, DisableRequestSizeLimit]
-        public async Task<IActionResult> Upload([FromBody]string fileName)
+        [HttpPost("{fileName}")]
+        public async Task<IActionResult> Upload(string fileName)
         {
             IFormFile file = Request.Form.Files[0];
 
             if (file == null || file.Length > 2097152)
             {
-                return this.UnprocessableEntity(new  {err = "Ypload file should be below 2Mb. " }); 
+                return this.UnprocessableEntity(new  {err = "Качения файл трябва да бъде не по-голям от 2МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." }); 
             }
 
             bool result = await this.documentService.CreateDocument(fileName, file);
@@ -40,7 +40,7 @@ namespace ODZ.Web.Controllers
             if (!result)
             return this.BadRequest();
 
-            return Ok(new { err = $"Качването е успешно. Вие създадохте файл с име {file}" });
+            return Ok(new { err = $"Качването е успешно. Вие създадохте файл с име {fileName}" });
         }
 
         // GET api/<DocumentController>/5
