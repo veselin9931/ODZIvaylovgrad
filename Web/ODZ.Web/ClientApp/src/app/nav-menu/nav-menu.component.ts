@@ -8,7 +8,7 @@ import { AccountService } from '../_services/'
 })
 
 export class NavMenuComponent {
-  isExpanded = false;
+  isExpanded = true;
   isLoggedIn;
 
   constructor(
@@ -17,7 +17,7 @@ export class NavMenuComponent {
   ) { this.isLoggedIn = localStorage.getItem("user"); }
 
   collapse() {
-    this.isExpanded = false;
+    this.isExpanded = true;
   }
 
   LogOut() {

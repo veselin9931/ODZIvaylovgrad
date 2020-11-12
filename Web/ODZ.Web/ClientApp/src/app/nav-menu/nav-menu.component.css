@@ -1,6 +1,11 @@
 .navbar {
   min-height: 80px;
+  width: 100%;
 }
+
+  .navbar > span{
+      margin-left: 10px;
+  }
 
 .navbar-brand {
   padding: 0 15px;
@@ -23,8 +28,7 @@
   }
 }
 
-#loginBtn{
+#loginBtn {
   margin-left: 20px;
   margin-top: 19px;
 }
-
