@@ -30,9 +30,9 @@ namespace ODZ.Web.Controllers
         {
             IFormFile file = Request.Form.Files[0];
 
-            if (file == null || file.Length > 2097152)
+            if (file == null || file.Length > 8388608)
             {
-                return this.UnprocessableEntity(new  {err = "Качения файл трябва да бъде не по-голям от 2МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." }); 
+                return this.UnprocessableEntity(new  {err = "Качения файл трябва да бъде не по-голям от 8МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." }); 
             }
 
             bool result = await this.documentService.CreateDocument(fileName, file);

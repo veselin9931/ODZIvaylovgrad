@@ -26,8 +26,8 @@ namespace ODZ.Services
             {
                 file.CopyTo(memoryStream);
 
-                // Upload the file if less than 2 MB
-                if (memoryStream.Length < 2097152)
+                // Upload the file if less than 8 MB
+                if (memoryStream.Length <= 8388608 )
                 {
                     var fileforDb = new Document()
                     {

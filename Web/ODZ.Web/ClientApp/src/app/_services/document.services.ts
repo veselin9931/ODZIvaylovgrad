@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpEventType } from "@angular/common/http";
+import { HttpEventType, HttpRequest, HttpEvent } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
@@ -13,15 +14,22 @@ export class DocumentService {
     private http: HttpClient
   ) { }
 
-  upload(progress: number, message: string, formData, filleName: string) {
-    this.http.post(`${environment.apiUrl}/api/document/${filleName}`, formData, { reportProgress: true, observe: 'events' })
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress)
-          progress = Math.round(100 * event.loaded / event.total);
-        else if (event.type === HttpEventType.Response) {
-          message = 'Upload success.';
-          return  event.body
-        }
-      });
+  upload(file: File, filleName: string): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `${environment.apiUrl}/api/document/${filleName}`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+
+    return this.http.request(req);
+
+  }
+
+  getAll(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}api/documents`);
   }
 }
