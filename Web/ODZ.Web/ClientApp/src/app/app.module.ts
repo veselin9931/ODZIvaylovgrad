@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { MDBBootstrapModule  } from 'angular-bootstrap-md';
+import { RouterModule, Routes } from '@angular/router';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +17,17 @@ import { DocumentsComponent } from './documents/documents.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { AccountModule } from './account/account.module';
+
+
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'fetch-data', component: FetchDataComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'groups', component: GroupsComponent },
+  { path: 'documents', component: DocumentsComponent },
+  { path: 'activity', component: ActivityComponent },
+  { path: 'about-parent', component: AboutParentComponent }
+];
 
 @NgModule({
   declarations: [
@@ -37,17 +48,10 @@ import { AccountModule } from './account/account.module';
     FormsModule,
     AccountModule,
     MDBBootstrapModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'about-us', component: AboutUsComponent },
-      { path: 'groups', component: GroupsComponent },
-      { path: 'documents', component: DocumentsComponent },
-      { path: 'activity', component: ActivityComponent },
-      { path: 'about-parent', component: AboutParentComponent },
-    ]),
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
   ],
+  exports: [RouterModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
