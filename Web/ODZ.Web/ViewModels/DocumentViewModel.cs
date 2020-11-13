@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ODZ.Mappings;
+using ODZ.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ODZ.Web.ViewModels { 
 
-    public class DocumentViewModel 
+    public class DocumentViewModel : IMapFrom<Document>
     {
         [Required]
         public int Id { get; set; }

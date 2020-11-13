@@ -25,7 +25,7 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
     this.progress = 0;
     this.loading = false;
-    //this.fileInfos = this.documentService.getAll();
+    this.fileInfos = this.documentService.getAll();
   }
 
 
@@ -55,7 +55,7 @@ export class UploadComponent implements OnInit {
 
           let message = `Файлът с име "${this.fileName}" беше качен успешно :)`;
           this.alertService.success(message, { autoClose: true });
-         // this.fileInfos = this.documentService.getAll();
+          this.fileInfos = this.documentService.getAll();
 
           if (this.progress == 100) {
             this.loading = false

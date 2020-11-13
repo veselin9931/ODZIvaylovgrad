@@ -9,53 +9,47 @@
           <!-- Logo Text -->
           <span class="text-uppercase font-weight-bold">ДГ "Ивайловград" </span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="home">Начало <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="about-us">За нас</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="groups">Групи</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="documents">Документи</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="activity">Дейност</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="about-parent">За родителя</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav nav-flex-icons">
-            <!--<li class="nav-item">
-              <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"><i class="fab fa-instagram"></i></a>
-            </li>-->
+        <div class="wrapper">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                  (click)="toggleCollapsed()">
+            <span class="navbar-toggler-icon text-center"></span>
+          </button>
+         </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+            <ul class="navbar-nav mr-auto text-center">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="home">Начало <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="about-us">За нас</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="groups">Групи</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="documents">Документи</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="activity">Дейност</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="about-parent">За родителя</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav nav-flex-icons text-center mb-3">
 
-            <li class="nav-item">
-              <button id="loginBtn" type="button" routerLink="login" class="btn btn-primary">Управление</button>
-            </li>
-            <li class="nav-item">
-              <button id="loginBtn" type="button" (click)="LogOut()" class="btn btn-primary">Изход</button>
-            </li>
-          </ul>
+              <li class="nav-item">
+                <button id="loginBtn" type="button" routerLink="login" class="btn btn-primary">Управление</button>
+              </li>
+              <li class="nav-item">
+                <button id="loginBtn" type="button" (click)="LogOut()" class="btn btn-primary">Изход</button>
+              </li>
+            </ul>
+          </div>
+
         </div>
-
-      </div>
-    </nav>
+</nav>
   </div>
 
   <ng-template #loggedOut>
@@ -68,11 +62,12 @@
           <span class="text-uppercase font-weight-bold">ДГ "Ивайловград" </span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                (click)="toggleCollapsed()">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+          <ul class="navbar-nav mr-auto text-center">
             <li class="nav-item active">
               <a class="nav-link" routerLink="home">Начало <span class="sr-only">(current)</span></a>
             </li>
@@ -92,7 +87,7 @@
               <a class="nav-link" routerLink="about-parent">За родителя</a>
             </li>
           </ul>
-          <ul class="navbar-nav nav-flex-icons">
+          <ul class="navbar-nav nav-flex-icons text-center mb-3">
 
             <li class="nav-item">
               <button id="loginBtn" type="button" routerLink="login" class="btn btn-primary">Влез</button>

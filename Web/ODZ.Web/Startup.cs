@@ -1,5 +1,6 @@
 namespace ODZ.Web
 {
+    using System.Reflection;
     using System.Text;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -16,7 +17,9 @@ namespace ODZ.Web
     using ODZ.Data.Common.Repositories;
     using ODZ.Data.Models;
     using ODZ.Data.Repositories;
+    using ODZ.Mappings;
     using ODZ.Services;
+    using ODZ.Web.ViewModels;
 
     public class Startup
     {
@@ -90,6 +93,10 @@ namespace ODZ.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(AllDocumentsViewModel).GetTypeInfo().Assembly,
+                typeof(DocumentViewModel).GetTypeInfo().Assembly);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

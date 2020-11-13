@@ -13,11 +13,7 @@
   line-height: 80px;
 }
 
-.navbar-toggle {
-  /* (80px - button height 34px) / 2 = 23px */
-  margin-top: 23px;
-  padding: 9px 10px !important;
-}
+
 
 @media (min-width: 768px) {
   .navbar-nav > li > a {

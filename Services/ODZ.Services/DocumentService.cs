@@ -4,8 +4,11 @@ using ODZ.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ODZ.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace ODZ.Services
 {
@@ -44,20 +47,54 @@ namespace ODZ.Services
 
                 return result > 0 ? true : false;
             }
-
-
-
-
         }
 
-        public Task<bool> DeleteDocumentByIdAsync(string id)
+        public async Task<bool> DeleteDocumentByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            //Gets document for delete from db.
+            var documentToDelete = this.repository.All()
+                .FirstOrDefault(x => x.Id == id);
+
+            if (documentToDelete != null)
+            {
+                //Delete the document from db.
+                this.repository.Delete(documentToDelete);
+
+                var result = await this.repository.SaveChangesAsync();
+                return result > 0;
+            }
+
+            //Later move exceptions in GlobalConstants class.
+
+            throw new InvalidOperationException($"Failed to delete document with id={documentToDelete.Id} from database!");
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllDocumentAsync<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllDocumentAsync<TViewModel>()
         {
-            throw new NotImplementedException();
+            //Gets all documents, working with ODZ.Mappings to map to IQueryable.
+
+            var allDocuments = await this.repository
+                .All()
+                .Where(x => x.IsDeleted == false)
+                .OrderBy(x => x.CreatedOn)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            if (allDocuments != null)
+            {
+                return allDocuments;
+            }
+
+            //Later move exceptions in GlobalConstants class.
+
+            throw new InvalidOperationException("Failed to load documents from database!");
         }
+
+        //Get document by passed id from database.
+        public async Task<TViewModel> GetDocumentByIdAsync<TViewModel>(int id)
+            => await this.repository.All()
+            .Where(x => x.Id == id && x.IsDeleted == false)
+            .To<TViewModel>()
+            .FirstOrDefaultAsync();
     }
 }

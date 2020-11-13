@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Microsoft.Web.Helpers;
 using ODZ.Services;
+using ODZ.Web.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,22 +33,47 @@ namespace ODZ.Web.Controllers
 
             if (file == null || file.Length > 8388608)
             {
-                return this.UnprocessableEntity(new  {err = "Качения файл трябва да бъде не по-голям от 8МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." }); 
+                return this.UnprocessableEntity(new { err = "Качения файл трябва да бъде не по-голям от 8МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." });
             }
 
             bool result = await this.documentService.CreateDocument(fileName, file);
 
             if (!result)
-            return this.BadRequest();
+                return this.BadRequest();
 
             return Ok(new { err = $"Качването е успешно. Вие създадохте файл с име {fileName}" });
         }
 
+        // GET api/<DocumentController>
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var documents = await this.documentService.GetAllDocumentAsync<DocumentViewModel>();
+
+            var allDocuments = new AllDocumentsViewModel()
+            {
+                AllDocuments = documents
+            };
+            if (allDocuments != null)
+            {
+                return this.Ok(allDocuments);
+            }
+
+            return this.BadRequest("Failed to load documents from db");
+        }
+
         // GET api/<DocumentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            var document = await this.documentService.GetDocumentByIdAsync<DocumentViewModel>(id);
+
+            if (document != null)
+            {
+                return this.Ok(document);
+            }
+
+            return this.BadRequest($"Failed to load document with id={id} from db");
         }
 
         // PUT api/<DocumentController>/5
@@ -58,8 +84,16 @@ namespace ODZ.Web.Controllers
 
         // DELETE api/<DocumentController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var document = await this.documentService.DeleteDocumentByIdAsync(id);
+
+            if (document)
+            {
+                return this.Ok(document);
+            }
+
+            return this.BadRequest($"Failed to delete document with id={id} from db");
         }
     }
 }
