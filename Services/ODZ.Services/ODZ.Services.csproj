@@ -11,7 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ODZ.Data\ODZ.Data.csproj" />
     <ProjectReference Include="..\..\Data\ODZ.Models\ODZ.Models.csproj" />
-    <ProjectReference Include="..\..\Web\ODZ.Mappings\ODZ.Mappings.csproj" />
+    <ProjectReference Include="..\ODZ.Mappings\ODZ.Mappings\ODZ.Mappings.csproj" />
   </ItemGroup>
 
 </Project>

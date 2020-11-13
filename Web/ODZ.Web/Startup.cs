@@ -17,8 +17,8 @@ namespace ODZ.Web
     using ODZ.Data.Common.Repositories;
     using ODZ.Data.Models;
     using ODZ.Data.Repositories;
-    using ODZ.Mappings;
     using ODZ.Services;
+    using ODZ.Services.Mapping;
     using ODZ.Web.ViewModels;
 
     public class Startup

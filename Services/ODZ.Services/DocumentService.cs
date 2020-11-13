@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ODZ.Mappings;
+using ODZ.Services.Mapping;
 
 using Microsoft.EntityFrameworkCore;
 

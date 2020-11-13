@@ -1,4 +1,4 @@
-﻿namespace ODZ.Mappings
+﻿namespace ODZ.Services.Mapping
 {
     using AutoMapper;
 

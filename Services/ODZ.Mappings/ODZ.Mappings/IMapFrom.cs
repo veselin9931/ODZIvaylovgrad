@@ -1,4 +1,4 @@
-﻿namespace ODZ.Mappings
+﻿namespace ODZ.Services.Mapping
 {
     public interface IMapFrom<T>
     {

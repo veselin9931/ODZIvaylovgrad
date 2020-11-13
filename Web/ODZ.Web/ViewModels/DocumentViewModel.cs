@@ -1,6 +1,6 @@
-﻿using ODZ.Mappings;
-using ODZ.Models;
+﻿using ODZ.Models;
 using System.ComponentModel.DataAnnotations;
+using ODZ.Services.Mapping;
 
 namespace ODZ.Web.ViewModels { 
 

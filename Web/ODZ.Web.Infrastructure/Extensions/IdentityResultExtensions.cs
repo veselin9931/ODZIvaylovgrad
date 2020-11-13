@@ -2,9 +2,7 @@
 {
     using System;
     using System.Linq;
-
-    using Microsoft.AspNetCore.Identity;
-
+    using Microsoft.AspNet.Identity;
     public static class IdentityResultExtensions
     {
         public static string GetFirstError(this IdentityResult identityResult)
@@ -14,7 +12,7 @@
                 throw new ArgumentNullException(nameof(identityResult));
             }
 
-            return identityResult.Errors.Select(e => e.Description).FirstOrDefault();
+            return identityResult.Errors.FirstOrDefault();
         }
     }
 }

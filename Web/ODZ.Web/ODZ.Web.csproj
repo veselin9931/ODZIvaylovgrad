@@ -63,7 +63,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Data\ODZ.Data\ODZ.Data.csproj" />
 		<ProjectReference Include="..\..\Services\ODZ.Services\ODZ.Services.csproj" />
-		<ProjectReference Include="ODZ.Web.Infrastructures\ODZ.Web.Infrastructures.csproj" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(ConfigurationConfiguration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
