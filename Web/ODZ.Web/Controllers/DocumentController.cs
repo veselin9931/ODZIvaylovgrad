@@ -76,12 +76,6 @@ namespace ODZ.Web.Controllers
             return this.BadRequest($"Failed to load document with id={id} from db");
         }
 
-        // PUT api/<DocumentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/<DocumentController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

@@ -32,7 +32,7 @@ export class DocumentService {
     return this.http.request(req);
   }
 
-  getAll() {
+  getAll()  {
     return this.http.get(`${environment.apiUrl}/api/document`)
       .pipe(map((data: any[]) => {
         this.documents = data;
@@ -44,8 +44,23 @@ export class DocumentService {
       }))
   }
 
-  getById(id: number){
-    return this.http.get<Document>(`${environment.apiUrl}/api/document/${id}`);
+  getById(id: number): Observable<HttpEvent<any>>{
+    const req = new HttpRequest("GET", `${environment.apiUrl}/api/document/${id}`, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
+
+  deleteById(id: number): Observable<HttpEvent<any>> {
+    const req = new HttpRequest("DELETE", `${environment.apiUrl}/api/document/${id}`, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
 
 }

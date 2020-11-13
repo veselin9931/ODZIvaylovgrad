@@ -1,34 +1,54 @@
-<!-- <div class="wrapper">
-    <div class="inner">
-      <app-upload></app-upload>
-    </div>  
-    <div class="inner">
-      <ul>
-        <li *ngFor="let document of documents[0]">{{document.name}}</li>
-      </ul>
-    </div>
-</div> -->
-
-
 <div class="wrapper">
   <div class="inner">
     <h3 class="font-weight-bold text-center dark-grey-text">Документи</h3>
-    <div class="text-center ml-4">
-      <app-upload></app-upload>
-    </div>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Име</th>
+                  <th scope="col">Размер</th>
+                  <th scope="col">Действие</th>
+                </tr>
+              </thead>
+              <tbody>
 
-    <ul>
-      <li *ngFor="let document of documents[0]">
-        <div class="container my-5 py-5 z-depth-2">
-          <section class="px-md-5 mx-md-5 dark-grey-text text-center text-lg-left">
-            <p class="font-weight-bold text-center dark-grey-text" (click)="downloadFile($event, document)">{{document.name}}</p>
-          </section>
-        </div>
-      </li>
-    </ul>
-    
+                <tr id="{{document.id}}" *ngFor="let document of documents[0]" (click)="downloadFile">
+
+                  <td>{{document.name}}</td>
+                  <td>{{document.size}} B</td>
+                  <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-success">Изтегли</button>
+                      <button class="btn-danger" (click)="deleteFile(document.id, document.name)" clickable>Премахни</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div [hidden]="!loading" class="text-center font-weight-bold h5">
+              <span class=" mr-1">Зареждане...  </span>
+              <span class="spinner-border mr-1"></span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3 text-justify font-weight-bold">
+              <h4 class="text-center row justify-content-center">За родители и учители</h4>
+              <p>
+                Тук ще откриете всички нужни молби и формуляри за вас.
+                Страницата е стъздадена с цел по-бързо и лесно разрешаване на административните въпроси.
+                Изтеглете нужния докмент и попълнете за да не губим от вашето време.
+                При възникнали въроси относно някой от формулярите моце да се свържете с нас :)
+              </p>
+       
+              <div class="btn-toolbar justify-content-center btn-info  col-12 " role="toolbar" aria-label="Toolbar with button groups">
+                <app-upload></app-upload>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
   </div>
-    
-    
-  
 </div>
