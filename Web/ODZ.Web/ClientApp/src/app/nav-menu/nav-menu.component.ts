@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../_services/'
+import { AccountService } from '../../_services';
 
 @Component({
   selector: 'app-nav-menu',

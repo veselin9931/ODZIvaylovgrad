@@ -7,7 +7,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,12 +17,11 @@ import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { AccountModule } from './account/account.module';
 import { UploadComponent } from './upload/upload.component';
-import { AlertComponent } from './_components';
+import { AlertComponent } from './alert';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'fetch-data', component: FetchDataComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'documents', component: DocumentsComponent },
@@ -35,7 +33,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    FetchDataComponent,
     FooterComponent,
     NavMenuComponent,
     AboutUsComponent,

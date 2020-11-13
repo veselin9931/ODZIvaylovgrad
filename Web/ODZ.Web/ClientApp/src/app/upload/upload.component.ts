@@ -1,10 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { DocumentService } from '../_services/document.services';
-import { AlertService } from '../_services';
-import { Alert, AlertType } from '../_models';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DocumentService } from '../../_services/document.services';
+import { AlertService } from '../../_services';
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
