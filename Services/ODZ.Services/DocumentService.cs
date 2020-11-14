@@ -38,7 +38,7 @@ namespace ODZ.Services
                         Name = name,
                         Bytes = memoryStream.ToArray(),
                         Size = memoryStream.Length,
-
+                        CreatedOn = DateTime.Now,
                     };
 
                     repository.Add(fileforDb);
@@ -77,7 +77,7 @@ namespace ODZ.Services
             var allDocuments = await this.repository
                 .All()
                 .Where(x => x.IsDeleted == false)
-                .OrderBy(x => x.CreatedOn)
+                .OrderByDescending(x => x.CreatedOn)
                 .To<TViewModel>()
                 .ToListAsync();
 

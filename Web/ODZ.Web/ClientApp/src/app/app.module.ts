@@ -16,7 +16,6 @@ import { DocumentsComponent } from './documents/documents.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { AccountModule } from './account/account.module';
-import { UploadComponent } from './upload/upload.component';
 import { AlertComponent } from './alert';
 
 
@@ -40,7 +39,6 @@ const routes: Routes = [
     DocumentsComponent,
     ActivityComponent,
     AboutParentComponent,
-    UploadComponent,
     AlertComponent
   ],
   imports: [

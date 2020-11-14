@@ -3,8 +3,8 @@ import { HttpEventType, HttpRequest, HttpEvent, HttpHeaders } from "@angular/com
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { catchError, concatMap, map, retry, startWith, tap } from 'rxjs/operators';
 import { Document } from '../_models/document';
 import { environment } from '../environments/environment';
 
@@ -13,7 +13,6 @@ import { environment } from '../environments/environment';
 export class DocumentService {
 
   constructor(
-    private router: Router,
     private http: HttpClient
   ) { }
 
@@ -36,6 +35,7 @@ export class DocumentService {
     return this.http.get(`${environment.apiUrl}/api/document`)
       .pipe(map((data: any[]) => {
         this.documents = data;
+        
         this.documents = Object.keys(data).map(function (nameIndex) {
           let items = data[nameIndex];
           return items;
@@ -62,5 +62,15 @@ export class DocumentService {
     return this.http.request(req);
   }
 
+  formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
 
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 }

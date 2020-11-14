@@ -12,9 +12,7 @@ export class NavMenuComponent {
   isLoggedIn;
 
   constructor(
-    private accountService: AccountService,
-
-  ) { this.isLoggedIn = localStorage.getItem("user"); }
+    private accountService: AccountService) { this.isLoggedIn = localStorage.getItem("user"); }
 
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
@@ -26,4 +24,6 @@ export class NavMenuComponent {
 
 
   }
+
+  
 }

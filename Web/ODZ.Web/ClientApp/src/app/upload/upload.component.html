@@ -1,6 +1,0 @@
-
-  <input type="file" #file placeholder="Качи документ" (change)="uploadFile(file.files)" style="display:none;">
-  <button [disabled]="loading" type="button" class="btn btn-info " (click)="file.click()">
-    Качи документ
-  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-  </button>

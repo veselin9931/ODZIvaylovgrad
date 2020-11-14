@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { Observable, timer } from 'rxjs';
 import { DocumentService } from '../../_services/document.services';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../../_services';
+
 
 @Component({
   selector: 'app-documents',
@@ -13,25 +14,72 @@ import { AlertService } from '../../_services';
 export class DocumentsComponent implements OnInit {
   public loading: boolean;
   public progress: number;
-  fileInfos: Observable<any>;
+  public fileName: string;
   public documents = [];
   url: string;
-
-  constructor(private documentService: DocumentService, private alertService: AlertService) { this.url = environment.apiUrl }
+  
+  @Output() public onUploadFinished = new EventEmitter();
+  constructor(private documentService: DocumentService,
+    private alertService: AlertService) {
+    this.url = environment.apiUrl,
+      this.documents = [];
+  }
 
   ngOnInit(): void {
     this.loading = true;
+    this.getAllDocuments();
+  }
+
+  getAllDocuments(): void {
     this.documentService.getAll()
       .subscribe(success => {
         if (success) {
           this.documents = this.documentService.documents;
-          console.log(this.documents);
         }
         this.loading = false;
-      })
-  } 
+      });
+  }
 
-  downloadFile(event, document){
+  public uploadFile = (files) => {
+    this.progress = 0;
+
+    if (files.length === 0) {
+      return;
+    }
+
+    let filesToUpload: FileList = files;
+    this.fileName = filesToUpload[0].name;
+    const formData = new FormData();
+
+    Array.from(filesToUpload).map((file, index) => {
+      return formData.append('file' + index, file, file.name);
+    });
+
+    this.loading = true;
+
+    this.documentService.upload(filesToUpload.item(0), this.fileName).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+
+          let message = `Файлът с име "${this.fileName}" беше качен успешно :)`;
+          this.alertService.success(message, { autoClose: true });
+          this.getAllDocuments();
+          if (this.progress == 100) {
+            this.loading = false
+          }
+        }
+      },
+      err => {
+        this.loading = false;
+        this.alertService.error(err.error.err, { autoClose: true });
+      }
+    );
+  }
+
+  downloadFile(event, document) {
     console.log(event);
     console.log(document);
   }
@@ -48,7 +96,7 @@ export class DocumentsComponent implements OnInit {
 
             let message = `${name} - беше премахнат успешно!`;
             this.alertService.success(message, { autoClose: true });
-            this.fileInfos = this.documentService.getAll();
+            this.getAllDocuments();
 
             if (this.progress == 100) {
               this.loading = false
@@ -60,5 +108,6 @@ export class DocumentsComponent implements OnInit {
           this.alertService.error(err.error.err, { autoClose: true });
         }
       );
+
   }
 }
