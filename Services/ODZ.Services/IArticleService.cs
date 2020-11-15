@@ -1,12 +1,12 @@
 ﻿namespace ODZ.Services
 {
-
+    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IArticleService
     {
-        public Task<bool> CreateArticle(string name, string descripton, string imgUrl, byte[] imgContent, string imgName);
+        public Task<bool> CreateArticle(string name, string descripton, IFormFile file);
 
         public Task<bool> DeleteArticleByIdAsync(int id);
 
