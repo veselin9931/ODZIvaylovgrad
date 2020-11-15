@@ -1,18 +1,11 @@
-﻿using ODZ.Common;
-using ODZ.Data.Common.Models;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using ODZ.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace ODZ.Models
+namespace ODZ.Web.ViewModels
 {
-    public class Group : BaseDeletableModel<int>
+    public class ArticleViewModel
     {
-        public Group()
-        {
-            this.Personal = new List<Customer>();
-        }
-
         [Required]
         [StringLength(GlobalConstants.MaxLenghtName, MinimumLength = GlobalConstants.MinLenghtName, ErrorMessage = GlobalConstants.NameErrorMsg)]
         public string Name { get; set; }
@@ -21,8 +14,7 @@ namespace ODZ.Models
         [StringLength(GlobalConstants.MaxLenghtDescription, ErrorMessage = GlobalConstants.DescriptionErrorMsg, MinimumLength = GlobalConstants.MinLenghDescription)]
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
 
-        public IList<Customer> Personal { get; set; }
+        public string ImagePath { get; set; }
     }
 }

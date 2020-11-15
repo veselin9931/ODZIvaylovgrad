@@ -17,6 +17,9 @@ namespace ODZ.Services
 
         public Task<IEnumerable<TViewModel>> GetAllDocumentAsync<TViewModel>();
 
+        public string DownloadDocumentByIdAsync(int id);
+
+
         public Task<TViewModel> GetDocumentByIdAsync<TViewModel>(int id);
     } 
 }

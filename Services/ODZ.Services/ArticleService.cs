@@ -1,35 +1,64 @@
-﻿using System;
+﻿using ODZ.Data.Common.Repositories;
+using ODZ.Models;
+using ODZ.Services.Mapping;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace ODZ.Services
 {
     public class ArticleService : IArticleService
     {
-        public int CreateArticle(string name, string descripton, string imgUrl)
+        private readonly IDeletableEntityRepository<Article> repository;
+
+        public ArticleService(IDeletableEntityRepository<Article> repository)
         {
-            throw new NotImplementedException();
+            this.repository = repository;
         }
 
-        public Task<bool> DeleteArticleByIdAsync(string id)
+        public async Task<bool> CreateArticle(string name, string descripton, string imgUrl, byte[] imgContent, string imgName)
         {
-            throw new NotImplementedException();
+            var article = new Article()
+            {
+                Name = name,
+                Description = descripton,
+                Document = new Document()
+                {
+                    Name = imgName,
+                    Bytes = imgContent,
+                    Size = imgContent.Length,
+                }
+            };
+
+            this.repository.Add(article);
+
+            var result = await repository.SaveChangesAsync();
+
+            return result > 0;
+
+
         }
 
-        public Task<bool> EditArticleByIdAsync(string id)
+        public async Task<bool> DeleteArticleByIdAsync(int id)
         {
-            throw new NotImplementedException();
+           var deleateble = this.repository.All().FirstOrDefault(a => a.Id == id);
+
+            deleateble.IsDeleted = true;
+
+            this.repository.Update(deleateble);
+
+            var result = await this.repository.SaveChangesAsync();
+
+            return result >0;
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllArticleAsync<TViewModel>()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<TViewModel> GetLastArticleAsync<TViewModel>()
+        public IEnumerable<TViewModel> GetAllArticleAsync<TViewModel>()
         {
-            throw new NotImplementedException();
+            return this.repository.All().To<TViewModel>().ToList();
         }
     }
 }

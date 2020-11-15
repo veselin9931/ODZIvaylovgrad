@@ -6,15 +6,11 @@
 
     public interface IArticleService
     {
-        public int CreateArticle(string name, string descripton, string imgUrl);
+        public Task<bool> CreateArticle(string name, string descripton, string imgUrl, byte[] imgContent, string imgName);
 
-        public Task<bool> DeleteArticleByIdAsync(string id);
+        public Task<bool> DeleteArticleByIdAsync(int id);
 
-        public Task<IEnumerable<TViewModel>> GetAllArticleAsync<TViewModel>();
-
-        public Task<TViewModel> GetLastArticleAsync<TViewModel>();
-
-        public Task<bool> EditArticleByIdAsync(string id);
+        public IEnumerable<TViewModel> GetAllArticleAsync<TViewModel>();
 
     }
 }

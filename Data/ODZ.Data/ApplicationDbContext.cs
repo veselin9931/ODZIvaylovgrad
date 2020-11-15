@@ -23,8 +23,6 @@
 
         public DbSet<Article> Articles { get; set; }
 
-        public DbSet<Group> Groups { get; set; }
-
         public DbSet<Document> Documents { get; set; }
 
 

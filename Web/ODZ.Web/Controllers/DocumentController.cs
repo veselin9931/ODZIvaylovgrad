@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -93,7 +94,7 @@ namespace ODZ.Web.Controllers
         // DELETE api/<DocumentController>/
         [HttpDelete()]
         public async Task<IActionResult> Delete()
-        { 
+        {
             var document = await this.documentService.DeleteAllDocuments();
 
             if (document)
@@ -102,6 +103,16 @@ namespace ODZ.Web.Controllers
             }
 
             return this.BadRequest($"Failed to delete documents.");
+        }
+
+        [HttpGet]
+        [Route("download/{id}")]
+        //download file api  
+        public IActionResult GetFile(int id)
+        {
+            var a = this.documentService.DownloadDocumentByIdAsync(id);
+
+            return this.Content(a);
         }
     }
 }

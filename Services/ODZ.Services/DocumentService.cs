@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ODZ.Services.Mapping;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace ODZ.Services
 {
@@ -81,6 +82,35 @@ namespace ODZ.Services
             //Later move exceptions in GlobalConstants class.
 
             throw new InvalidOperationException($"Failed to delete document with id={documentToDelete.Id} from database!");
+        }
+
+        public string DownloadDocumentByIdAsync(int id)
+        {
+            var file = this.repository.All().FirstOrDefault(a => a.Id == id);
+            var path = Environment.CurrentDirectory + "\\wwwroot";
+            try
+            {
+                if (file != null)
+                {
+                    File.WriteAllBytes(path, file.Bytes);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                FileAttributes attributes = File.GetAttributes(path);
+                if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
+                    attributes &= ~FileAttributes.ReadOnly;
+                    File.SetAttributes(path, attributes);
+                    File.WriteAllBytes(path, file.Bytes);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+
+            return Environment.CurrentDirectory.ToString();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllDocumentAsync<TViewModel>()
