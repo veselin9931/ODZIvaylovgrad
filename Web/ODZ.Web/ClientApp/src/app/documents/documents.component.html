@@ -1,8 +1,8 @@
-<div class="wrapper">
+<div class="wrapper ">
   <div class="inner">
     <h3 class="font-weight-bold text-center dark-grey-text">Документи</h3>
     <div class="container">
-      <div class="row">
+      <div class="row pt-4">
         <div class="col">
           <table class="table">
             <thead class="thead-dark">
@@ -43,11 +43,16 @@
             </p>
 
             <div class="btn-toolbar justify-content-center btn-info  col-12 " role="toolbar"
-              aria-label="Toolbar with button groups">
+                 aria-label="Toolbar with button groups">
               <input type="file" #file placeholder="Качи документ" (change)="uploadFile(file.files)"
-                style="display:none;">
+                     style="display:none;">
               <button [disabled]="loading" type="button" class="btn btn-info " (click)="file.click()">
                 Качи документ
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              </button>
+
+              <button [disabled]="loading" type="button" class="btn btn-info " (click)="deleteAll()">
+                Изтрий всички
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               </button>
 

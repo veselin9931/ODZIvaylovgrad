@@ -50,6 +50,19 @@ namespace ODZ.Services
             }
         }
 
+        public async Task<bool> DeleteAllDocuments()
+        {
+
+            foreach (var document in this.repository.All())
+            {
+                document.IsDeleted = true;
+            }
+
+            int result = await this.repository.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<bool> DeleteDocumentByIdAsync(int id)
         {
             //Gets document for delete from db.

@@ -89,5 +89,19 @@ namespace ODZ.Web.Controllers
 
             return this.BadRequest($"Failed to delete document with id={id} from db");
         }
+
+        // DELETE api/<DocumentController>/
+        [HttpDelete()]
+        public async Task<IActionResult> Delete()
+        { 
+            var document = await this.documentService.DeleteAllDocuments();
+
+            if (document)
+            {
+                return this.Ok(document);
+            }
+
+            return this.BadRequest($"Failed to delete documents.");
+        }
     }
 }

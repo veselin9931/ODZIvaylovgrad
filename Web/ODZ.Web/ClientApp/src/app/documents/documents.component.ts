@@ -110,4 +110,32 @@ export class DocumentsComponent implements OnInit {
       );
 
   }
+
+  public deleteAll = () => {
+
+    this.documentService.deleteAll()
+      .subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+
+            let message = `Успешно изтрихте всички файлове!`;
+            this.alertService.success(message, { autoClose: true });
+            this.getAllDocuments();
+
+            if (this.progress == 100) {
+              this.loading = false
+            }
+          }
+        },
+        err => {
+          this.loading = false;
+          this.alertService.error(err.error.err, { autoClose: true });
+        }
+      );
+
+  }
+
 }

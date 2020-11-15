@@ -62,6 +62,16 @@ export class DocumentService {
     return this.http.request(req);
   }
 
+  deleteAll(): Observable<HttpEvent<any>> {
+    const req = new HttpRequest("DELETE", `${environment.apiUrl}/api/document`, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
+
   formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
 

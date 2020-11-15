@@ -11,6 +11,8 @@ namespace ODZ.Services
     {
         public Task<bool> CreateDocument(string name, IFormFile file);
 
+        public Task<bool> DeleteAllDocuments();
+
         public Task<bool> DeleteDocumentByIdAsync(int id);
 
         public Task<IEnumerable<TViewModel>> GetAllDocumentAsync<TViewModel>();
