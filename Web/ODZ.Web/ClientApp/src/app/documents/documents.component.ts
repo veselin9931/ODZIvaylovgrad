@@ -1,10 +1,9 @@
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
-import { Observable, timer } from 'rxjs';
 import { DocumentService } from '../../_services/document.services';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AlertService } from '../../_services';
-
+import { AccountService, AlertService } from '../../_services';
+import { User } from '../../_models/user';
 
 @Component({
   selector: 'app-documents',
@@ -16,13 +15,16 @@ export class DocumentsComponent implements OnInit {
   public progress: number;
   public fileName: string;
   public documents = [];
+  public user: User;
   url: string;
   
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private documentService: DocumentService,
-    private alertService: AlertService) {
-    this.url = environment.apiUrl,
+              private alertService: AlertService,
+              private accountService: AccountService) {
+      this.url = environment.apiUrl,
       this.documents = [];
+      this.user = this.accountService.userValue;
   }
 
   ngOnInit(): void {
