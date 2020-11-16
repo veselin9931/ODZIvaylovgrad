@@ -84,10 +84,12 @@ namespace ODZ.Web
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IArticleService, ArticleService>();
+
 
             services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
-
+            
             services.AddControllersWithViews();
         }
 
@@ -95,7 +97,9 @@ namespace ODZ.Web
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(AllDocumentsViewModel).GetTypeInfo().Assembly,
-                typeof(DocumentViewModel).GetTypeInfo().Assembly);
+                typeof(DocumentViewModel).GetTypeInfo().Assembly,
+                typeof(AllArticlesViewModel).GetTypeInfo().Assembly,
+                typeof(ArticleViewModel).GetTypeInfo().Assembly);
 
             if (env.IsDevelopment())
             {
