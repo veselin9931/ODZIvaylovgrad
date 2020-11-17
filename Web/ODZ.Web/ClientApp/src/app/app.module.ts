@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -17,6 +17,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { AboutParentComponent } from './about-parent/about-parent.component';
 import { AccountModule } from './account/account.module';
 import { AlertComponent } from './alert';
+import { ArticleComponent } from './article/article.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'groups', component: GroupsComponent },
   { path: 'documents', component: DocumentsComponent },
   { path: 'activity', component: ActivityComponent },
-  { path: 'about-parent', component: AboutParentComponent }
+  { path: 'about-parent', component: AboutParentComponent },
+  { path: 'article', component: ArticleComponent }
+
 ];
 
 @NgModule({
@@ -39,12 +42,14 @@ const routes: Routes = [
     DocumentsComponent,
     ActivityComponent,
     AboutParentComponent,
-    AlertComponent
+    AlertComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AccountModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),

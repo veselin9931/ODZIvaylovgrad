@@ -6,7 +6,7 @@
 
     public interface IArticleService
     {
-        public Task<bool> CreateArticle(string name, string descripton, IFormFile file);
+        public Task<bool> CreateArticle(string name, string descripton);
 
         public Task<bool> DeleteArticleByIdAsync(int id);
 

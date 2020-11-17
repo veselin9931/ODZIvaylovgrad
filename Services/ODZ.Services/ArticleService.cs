@@ -23,7 +23,7 @@ namespace ODZ.Services
             this.repository1 = repository1;
         }
 
-        public async Task<bool> CreateArticle(string name, string descripton, IFormFile file)
+        public async Task<bool> CreateArticle(string name, string descripton)
         {
             var article = new Article()
             {
@@ -31,38 +31,17 @@ namespace ODZ.Services
                 Description = descripton,
             };
 
+            this.repository.Add(article);
 
-            using (var memoryStream = new MemoryStream())
+            var result = await this.repository.SaveChangesAsync();
+
+            if (result != 0)
             {
-                file.CopyTo(memoryStream);
-
-                // Upload the file if less than 8 MB
-                if (memoryStream.Length <= 8388608)
-                {
-                    var fileforDb = new Document()
-                    {
-                        Name = name,
-                        Bytes = memoryStream.ToArray(),
-                        Size = memoryStream.Length,
-                        CreatedOn = DateTime.Now,
-                    };
-
-                    repository1.Add(fileforDb);
-
-                    if (await repository.SaveChangesAsync() > 0)
-                    {
-                        article.Document.Id = fileforDb.Id;
-                    }
-                }
-
-                this.repository.Add(article);
-
-                var result = await repository.SaveChangesAsync();
-
-                return result > 0;
-
-
+                return true;
             }
+
+            return false;
+            
         }
 
         public async Task<bool> DeleteArticleByIdAsync(int id)

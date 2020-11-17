@@ -266,8 +266,8 @@ namespace ODZ.Data.Migrations
                         .HasColumnType("nvarchar(800)")
                         .HasMaxLength(800);
 
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -281,8 +281,6 @@ namespace ODZ.Data.Migrations
                         .HasMaxLength(35);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
 
                     b.ToTable("Articles");
                 });
@@ -381,15 +379,6 @@ namespace ODZ.Data.Migrations
                     b.HasOne("ODZ.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ODZ.Models.Article", b =>
-                {
-                    b.HasOne("ODZ.Models.Document", "Document")
-                        .WithMany()
-                        .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -29,16 +29,9 @@ namespace ODZ.Web.Controllers
 
         // POST api/<ArticleController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string name, string description)
+        public async Task<IActionResult> Post([FromBody]ArticleViewModel model)
         {
-            IFormFile file = Request.Form.Files[0];
-
-            if (file == null || file.Length > 8388608)
-            {
-                return this.UnprocessableEntity(new { err = "Качения файл трябва да бъде не по-голям от 8МБ. Ако искате да качите по-голям файл свържете се с вашия администратор." });
-            }
-
-            var result = await this.articleService.CreateArticle(name, description, file);
+            var result = await this.articleService.CreateArticle(model.Name, model.Description);
 
             if (result)
             {

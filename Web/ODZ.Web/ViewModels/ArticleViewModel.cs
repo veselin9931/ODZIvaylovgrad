@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using ODZ.Common;
+using ODZ.Models;
+using ODZ.Services.Mapping;
 using System.ComponentModel.DataAnnotations;
 
 namespace ODZ.Web.ViewModels
 {
-    public class ArticleViewModel
+    public class ArticleViewModel : IMapFrom<Article>
     {
         [Required]
         [StringLength(GlobalConstants.MaxLenghtName, MinimumLength = GlobalConstants.MinLenghtName, ErrorMessage = GlobalConstants.NameErrorMsg)]

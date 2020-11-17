@@ -17,10 +17,7 @@ namespace ODZ.Models
         [StringLength(GlobalConstants.MaxLenghtDescription,ErrorMessage = GlobalConstants.DescriptionErrorMsg, MinimumLength = GlobalConstants.MinLenghDescription )]
         public string Description { get; set; }
 
-
-        public int DocumentId { get; set; }
-
-        public Document Document { get; set; }
+        public string ImagePath { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ import { AlertService, AccountService } from '../../_services';
 export class RegisterComponent implements OnInit {
     form: FormGroup;
     loading = false;
-    submitted = false;
+    submitted = false; 
 
     constructor(
         private formBuilder: FormBuilder,
