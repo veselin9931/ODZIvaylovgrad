@@ -1,4 +1,7 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../_models';
+import { AccountService, AlertService } from '../../_services';
 import { ArticleService } from '../../_services/article.service';
 
 @Component({
@@ -8,7 +11,15 @@ import { ArticleService } from '../../_services/article.service';
 export class HomeComponent implements OnInit {
   public articles = [];
   public loading: boolean;
-  constructor(private articleService: ArticleService) { this.articles = []; }
+  public user: User;
+  public progress: number;
+  
+  constructor(private articleService: ArticleService,
+              private accountService: AccountService,
+              private alertService: AlertService) { 
+                this.articles = []; 
+                this.user = this.accountService.userValue;
+              }
 
   ngOnInit(): void {
     this.loading = true;
@@ -23,5 +34,22 @@ export class HomeComponent implements OnInit {
         }
         this.loading = false;
       })
+  }
+
+  public deleteFile = (id: number, name: string) => {
+
+    this.articleService.deleteArticle(id)
+      .subscribe(
+        event => {
+            let message = `${name} - беше премахнат успешно!`;
+            this.alertService.success(message, { autoClose: true });
+            this.getAllArticles();    
+        },
+        err => {
+          this.loading = false;
+          this.alertService.error(err.error.err, { autoClose: true });
+        }
+      );
+
   }
 }

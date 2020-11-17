@@ -1,0 +1,157 @@
+{
+  "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/Microsoft.Resources/deployments/Microsoft.Web-WebApp-Portal-11477490-9184",
+  "name": "Microsoft.Web-WebApp-Portal-11477490-9184",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "primaryResourceId": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourcegroups/Angular/providers/Microsoft.Web/sites/odzivaylovgrad",
+    "marketplaceItemId": "Microsoft.WebSite"
+  },
+  "properties": {
+    "templateHash": "13519395236316523533",
+    "parameters": {
+      "subscriptionId": {
+        "type": "String",
+        "value": "6c29e7dd-3deb-48b5-bb12-081a748d31a0"
+      },
+      "name": {
+        "type": "String",
+        "value": "odzivaylovgrad"
+      },
+      "location": {
+        "type": "String",
+        "value": "West Europe"
+      },
+      "hostingPlanName": {
+        "type": "String",
+        "value": "ASP-Angular-ac19"
+      },
+      "serverFarmResourceGroup": {
+        "type": "String",
+        "value": "Angular"
+      },
+      "alwaysOn": {
+        "type": "Bool",
+        "value": false
+      },
+      "sku": {
+        "type": "String",
+        "value": "Free"
+      },
+      "skuCode": {
+        "type": "String",
+        "value": "F1"
+      },
+      "workerSize": {
+        "type": "String",
+        "value": "0"
+      },
+      "workerSizeId": {
+        "type": "String",
+        "value": "0"
+      },
+      "numberOfWorkers": {
+        "type": "String",
+        "value": "1"
+      },
+      "currentStack": {
+        "type": "String",
+        "value": "dotnetcore"
+      },
+      "phpVersion": {
+        "type": "String",
+        "value": "OFF"
+      },
+      "errorLink": {
+        "type": "String",
+        "value": "https://odzivaylovgrad.scm.azurewebsites.net/detectors?type=tools&name=eventviewer"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Running",
+    "timestamp": "2020-11-17T12:17:47.4097541Z",
+    "duration": "PT10.4190477S",
+    "correlationId": "c078c7c2-b9db-4b21-a13b-f05751fd004e",
+    "providers": [
+      {
+        "namespace": "Microsoft.Web",
+        "resourceTypes": [
+          {
+            "resourceType": "sites",
+            "locations": [
+              "westeurope"
+            ]
+          },
+          {
+            "resourceType": "serverfarms",
+            "locations": [
+              "westeurope"
+            ]
+          }
+        ]
+      },
+      {
+        "namespace": "microsoft.insights",
+        "resourceTypes": [
+          {
+            "resourceType": "components",
+            "locations": [
+              "westeurope"
+            ]
+          }
+        ]
+      },
+      {
+        "namespace": "Microsoft.Resources",
+        "resourceTypes": [
+          {
+            "resourceType": "deployments",
+            "locations": [
+              null
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/microsoft.insights/components/odzivaylovgrad",
+            "resourceType": "microsoft.insights/components",
+            "resourceName": "odzivaylovgrad"
+          },
+          {
+            "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/Microsoft.Web/serverfarms/ASP-Angular-ac19",
+            "resourceType": "Microsoft.Web/serverfarms",
+            "resourceName": "ASP-Angular-ac19"
+          },
+          {
+            "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/microsoft.insights/components/odzivaylovgrad",
+            "resourceType": "microsoft.insights/components",
+            "resourceName": "odzivaylovgrad",
+            "apiVersion": "2015-05-01"
+          }
+        ],
+        "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/Microsoft.Web/sites/odzivaylovgrad",
+        "resourceType": "Microsoft.Web/sites",
+        "resourceName": "odzivaylovgrad"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.Resources/deployments/newWorkspaceTemplate",
+            "resourceType": "Microsoft.Resources/deployments",
+            "resourceName": "newWorkspaceTemplate"
+          }
+        ],
+        "id": "/subscriptions/6c29e7dd-3deb-48b5-bb12-081a748d31a0/resourceGroups/Angular/providers/microsoft.insights/components/odzivaylovgrad",
+        "resourceType": "microsoft.insights/components",
+        "resourceName": "odzivaylovgrad"
+      }
+    ],
+    "validationLevel": "Template"
+  }
+}

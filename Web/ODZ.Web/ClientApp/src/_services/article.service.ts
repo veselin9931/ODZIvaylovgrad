@@ -30,6 +30,14 @@ export class ArticleService {
       }))
   }
 
+  deleteArticle(id: number) {
+    return this.http.delete(`${environment.apiUrl}/api/article/${id}`)
+      .pipe( 
+        tap(data => console.log('deleted article: ', JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(err): Observable<never> {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {

@@ -44,9 +44,16 @@ namespace ODZ.Web.Controllers
 
         // DELETE api/<ArticleController>/5
         [HttpDelete("{id}")]
-        public async void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-          await  this.articleService.DeleteArticleByIdAsync(id);
+           var article = await this.articleService.DeleteArticleByIdAsync(id);
+
+            if (article)
+            {
+                return this.Ok(article);
+            }
+
+            return this.BadRequest($"Failed to delete article.");
         }
     }
 }
