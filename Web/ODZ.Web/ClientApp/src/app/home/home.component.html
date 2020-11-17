@@ -16,7 +16,7 @@
                 <span>
                   <h5 class="font-weight-bold text-info">{{article.name}}</h5>
                   <p class="font-weight-bold">{{article.description}}</p>
-                  <button *ngIf="this.user" class="btn-danger" (click)="deleteFile(article.id, article.name)">Изтрий</button>
+                  <button *ngIf="this.user" class="btn btn-danger" (click)="deleteFile(article.id, article.name)">Изтрий</button>
                 </span>
                 
             <hr />
