@@ -29,7 +29,6 @@ namespace ODZ.Web.Controllers
 
         // POST api/<DocumentController>
         [HttpPost("{fileName}")]
-        [Authorize]
         public async Task<IActionResult> Upload(string fileName)
         {
             IFormFile file = Request.Form.Files[0];
@@ -81,7 +80,6 @@ namespace ODZ.Web.Controllers
 
         // DELETE api/<DocumentController>/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var document = await this.documentService.DeleteDocumentByIdAsync(id);
@@ -96,7 +94,6 @@ namespace ODZ.Web.Controllers
 
         // DELETE api/<DocumentController>/
         [HttpDelete()]
-        [Authorize]
         public async Task<IActionResult> Delete()
         {
             var document = await this.documentService.DeleteAllDocuments();
