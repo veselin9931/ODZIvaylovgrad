@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "progress": false,
-            "extractCss": true,
+            "extractCss": false,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -40,7 +40,7 @@
               "node_modules/hammerjs/hammer.min.js"
             ]
           },
-          "Configurations": {
+          "configurations": {
             "production": {
               "fileReplacements": [
                 {
@@ -65,7 +65,7 @@
           "options": {
             "browserTarget": "ODZ.Web:build"
           },
-          "Configurations": {
+          "configurations": {
             "production": {
               "browserTarget": "ODZ.Web:build:production"
             }
@@ -112,24 +112,6 @@
             "outputPath": "dist-server",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.server.json"
-          },
-          "Configurations": {
-            "dev": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": true
-            },
-            "production": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false
-            }
           }
         }
       }
@@ -152,6 +134,11 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ODZ.Web:serve:production"
+            }
           }
         }
       }
